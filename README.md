@@ -75,3 +75,7 @@ npm install -g msal
 ```
 
 Look at [Azure Samples](https://github.com/Azure-Samples?language=&page=1&q=ms-identity&type=)
+
+Maybe [ms-identity-javascript-react-spa-dotnetcore-webapi-obo](https://github.com/Azure-Samples/ms-identity-javascript-react-spa-dotnetcore-webapi-obo)
+
+Maybe [Axios Intercept](https://github.com/jpda/msaljs-axios-intercept) or with a [popup](https://github.com/jpda/msaljs-sample)
