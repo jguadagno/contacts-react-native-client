@@ -46,10 +46,11 @@ yarn add axios url
 yarn add -D @openapitools/openapi-generator-cli
 // Create Api folder (for everything API related)
 mkdir Api
+cd Contacts
 // Download OAS file to Api folder
 curl https://cwjg-contacts-api.azurewebsites.net/swagger/v1/swagger.json > ./Api/openapi.json
 // Add generator script to package.json
-npx add-project-script -n "openapi" -v "openapi-generator generate -i ./Api/openapi.json -g typescript-axios -o ./Api/generated"
+npx add-project-script -n "openapi" -v "openapi-generator-cli generate -i ./Api/openapi.json -g typescript-axios -o ./Api/generated"
 // Generate the client (requires JDK installed)
 yarn openapi
 ```
@@ -68,11 +69,34 @@ export default {
 };
 ```
 
+In the `App.tsx` file
+
+Top
+
+```javascript
+import Api from './Api'
+```
+
+In the `return`
+
+```javascript
+<View style={styles.container}>
+    <Text>Welcome new followers!</Text>
+    <Button title="Hello" onPress={() => {
+    var list = Api.Contacts.contactsGet();
+    console.log("Hello");}} />
+</View>
+```
+
 Install the NPM Package
 
 ```bash
-npm install -g msal
+npm install msal
 ```
+
+## Configure security
+
+Still a work in progress.
 
 Look at [Azure Samples](https://github.com/Azure-Samples?language=&page=1&q=ms-identity&type=)
 
