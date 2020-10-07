@@ -8,6 +8,12 @@ The React Native Client for the contacts application of the 'Coding with JoeG' s
 
 Node.js [installation](https://nodejs.org/en/)
 
+After node.js is installed, if you want to load the required packages ahead of time so the installation goes faster.
+
+```bash
+npm install -g expo-cli msal @openapitools/openapi-generator-cli
+```
+
 ### React Native
 
 [React Native](https://reactnative.dev/)
@@ -33,7 +39,7 @@ openapi-generator-cli generate -i http://cwjg-contacts-api.azurewebsites.net/swa
 
 #### Actively developing an API
 
-If your API is in flux, you can use the following to setup your React Native application.
+If your API is in flux, you can use the following to setup your React Native application. Note: change the text of `my-app` to whatever app name you want to use.
 
 ```bash
 // Bootstrap RN project using TS template
@@ -46,7 +52,6 @@ yarn add axios url
 yarn add -D @openapitools/openapi-generator-cli
 // Create Api folder (for everything API related)
 mkdir Api
-cd Contacts
 // Download OAS file to Api folder
 curl https://cwjg-contacts-api.azurewebsites.net/swagger/v1/swagger.json > ./Api/openapi.json
 // Add generator script to package.json
@@ -103,3 +108,20 @@ Look at [Azure Samples](https://github.com/Azure-Samples?language=&page=1&q=ms-i
 Maybe [ms-identity-javascript-react-spa-dotnetcore-webapi-obo](https://github.com/Azure-Samples/ms-identity-javascript-react-spa-dotnetcore-webapi-obo)
 
 Maybe [Axios Intercept](https://github.com/jpda/msaljs-axios-intercept) or with a [popup](https://github.com/jpda/msaljs-sample)
+
+### Steps
+
+Copy msal files
+
+* IRequestConfiguration.ts
+* MsalConfig.ts
+* MsalHandler.ts
+
+Create the Azure client Application
+
+## References
+
+* [React Native](https://reactnative.dev)
+* OpenAPI Tools [OpenAPI Generator](https://github.com/OpenAPITools/openapi-generator)
+* [How to automate API code generation (OpenAPI/Swagger) and boost productivity](https://medium.com/tribalscale/how-to-automate-api-code-generation-openapi-swagger-and-boost-productivity-1176a0056d8a)
+* [Using Axios with React to Make API Requests](https://upmostly.com/tutorials/using-axios-with-react-api-requests)
