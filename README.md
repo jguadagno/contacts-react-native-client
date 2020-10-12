@@ -11,7 +11,8 @@ Node.js [installation](https://nodejs.org/en/)
 After node.js is installed, if you want to load the required packages ahead of time so the installation goes faster.
 
 ```bash
-npm install -g expo-cli msal @openapitools/openapi-generator-cli
+npm install -g expo-cli msal @openapitools/openapi-generator-cli @react-navigation/native @react-navigation/stack
+expo install react-native-gesture-handler react-native-reanimated react-native-screens react-native-safe-area-context @react-native-community/masked-view
 ```
 
 ### React Native
@@ -47,7 +48,7 @@ npx create-react-native-app my-app --template with-typescript
 // CD into the project
 cd my-app
 // Add project dependencies
-yarn add axios url
+yarn add axios url @react-navigation/native @react-navigation/stack
 // Add client generator (as Dev dependency)
 yarn add -D @openapitools/openapi-generator-cli
 // Create Api folder (for everything API related)
