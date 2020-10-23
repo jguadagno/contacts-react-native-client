@@ -7,6 +7,9 @@ import { createStackNavigator } from '@react-navigation/stack';
 import Auth from './screens/Auth';
 import MsalHandler from './msal/MsalHandler';
 
+// Custom Screens
+import ContactsList from './screens/contacts/list';
+
 const msal = MsalHandler.getInstance();
 var user = msal.getUserData();
 
@@ -14,6 +17,7 @@ function HomeScreen({navigation}) {
   return (
     <View style={styles.container}>
       <Text>Welcome new followers!</Text>
+      <Button title="View Contacts" onPress={() => navigation.navigate('contacts-list')} />
       <Button title="Hello" onPress={() => {console.log("Hello");}} />
       <Button title={user.accountAvailable ? "Claims for " + user.displayName : "Login"} onPress={() => navigation.navigate('Auth')} />
       <Button title="Number of Contacts" onPress={async () => {
@@ -35,6 +39,7 @@ export default function App() {
     <Stack.Navigator>
       <Stack.Screen name="Home" component={HomeScreen} />
       <Stack.Screen name="Auth" component={Auth} />
+      <Stack.Screen name="contacts-list" component={ContactsList} />
     </Stack.Navigator>
   </NavigationContainer>
   );
