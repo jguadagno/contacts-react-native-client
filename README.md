@@ -56,6 +56,13 @@ yarn web
 
 to run the application.
 
+## Stream
+
+This sample was built on the stream '[Coding with JoeG](https://jjg.me/stream)'. Here are some of the videos for it.
+
+* Video: [Introduction to React Native](https://youtu.be/IScDA7cKsSM)
+* Video: [Building the API Client and Authentication](https://youtu.be/9Wot8p9bWf4)
+
 ## References
 
 * [React Native](https://reactnative.dev)
@@ -64,3 +71,4 @@ to run the application.
 * [Using Axios with React to Make API Requests](https://upmostly.com/tutorials/using-axios-with-react-api-requests)
 * [React Native Dev Tools](https://microsoftedge.microsoft.com/addons/detail/react-developer-tools/gpphkfbcpidddadnkolkpfckpihlkkil)
 * JP Dandison, aka [@AzureAndChill](https://www.twitter.com/AzureAndChill) [Axios Intercept](https://github.com/jpda/msaljs-axios-intercept) with Microsoft Identity Library for JavaScript [MSAL.js](https://github.com/AzureAD/microsoft-authentication-library-for-js)
+* React Native Elements - [Getting Started](https://reactnativeelements.com/docs/)

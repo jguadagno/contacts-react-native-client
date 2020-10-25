@@ -1,10 +1,9 @@
 import React, { Component } from 'react';
-import { ActivityIndicator, View, Text, FlatList, StyleSheet } from 'react-native';
+import { ActivityIndicator, View, FlatList, StyleSheet } from 'react-native';
+import { Avatar, ListItem, Text, ThemeProvider } from 'react-native-elements';
 
 import Api from '../../api'
 import { Contact } from '../../api/generated';
-
-import MsalHandler from '../../msal/MsalHandler';
 
 const styles = StyleSheet.create({
   container: {
@@ -12,24 +11,6 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
     alignItems: 'center',
     justifyContent: 'center',
-  },
-  center: {
-    flex: 1,
-    justifyContent: 'center',
-  },
-  horizontal: {
-    flexDirection: 'row',
-    justifyContent: 'space-around',
-    padding: 10,
-  },
-  red: {
-    color: 'red',
-  },
-  item: {
-    backgroundColor: '#f9c2ff',
-    padding: 20,
-    marginVertical: 8,
-    marginHorizontal: 16,
   },
 });
 
@@ -54,32 +35,41 @@ export default class ContactsList extends Component {
   render() {
     if (this.state.isLoading) {
       return (
-        <View style={[styles.container, styles.horizontal]}>
-          <ActivityIndicator size="large" />
-        </View>
+        <ThemeProvider>
+          <View style={[styles.container]}>
+            <ActivityIndicator size="large" />
+          </View>
+        </ThemeProvider>
       );
     }
 
     if (this.state.isError) {
       return (
-        <View style={[styles.container, styles.horizontal]}>
-          <Text style={styles.red}>Failed to connect to the service.</Text>
-        </View>
+        <ThemeProvider>
+          <View style={[styles.container]}>
+            <Text>Failed to connect to the service.</Text>
+          </View>
+        </ThemeProvider>
       );
     }
 
     return (
-      <View style={styles.container}>
-        <FlatList
-          data={this.state.contactList}
-          keyExtractor={item => item.contactId.toString()}
-          renderItem={({ item }) => (
-            <Text style={styles.item}>
-              {item.fullName}
-            </Text>
-          )}
-        />
-      </View>
+      <ThemeProvider>
+        <View style={styles.container}>
+          <FlatList
+            data={this.state.contactList}
+            keyExtractor={item => item.contactId.toString()}
+            renderItem={({ item }) => (
+              <ListItem>
+                <Avatar source={{uri: item.imageUrl}} />
+                <ListItem.Content>
+                  <ListItem.Title>{item.fullName}</ListItem.Title>
+                </ListItem.Content>
+              </ListItem>
+            )}
+          />
+        </View>
+      </ThemeProvider>
     );
   }
 

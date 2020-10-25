@@ -1,5 +1,6 @@
 import React from 'react';
-import { Button, StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, View } from 'react-native';
+import { Button, Text, ThemeProvider } from 'react-native-elements';
 import Api from './api'
 
 import { NavigationContainer } from '@react-navigation/native';
@@ -15,19 +16,21 @@ var user = msal.getUserData();
 
 function HomeScreen({navigation}) {
   return (
-    <View style={styles.container}>
-      <Text>Welcome new followers!</Text>
-      <Button title="View Contacts" onPress={() => navigation.navigate('contacts-list')} />
-      <Button title="Hello" onPress={() => {console.log("Hello");}} />
-      <Button title={user.accountAvailable ? "Claims for " + user.displayName : "Login"} onPress={() => navigation.navigate('Auth')} />
-      <Button title="Number of Contacts" onPress={async () => {
-        var contactList = await Api.Contacts.contactsGet();
-        console.log("Number of contacts: " + contactList.data.length);}} />
-      <Button title="Get First Contact" onPress={async () => {
-        var contact = await Api.Contacts.contactsIdGet(1);
-        console.log("First name: '" + contact.data.fullName + "'");
-      }} />
-    </View>
+    <ThemeProvider>
+      <View style={styles.container}>
+        <Text>Welcome new followers!</Text>
+        <Button title="View Contacts" onPress={() => navigation.navigate('contacts-list')} />
+        <Button title="Hello" onPress={() => {console.log("Hello");}} />
+        <Button title={user.accountAvailable ? "Claims for " + user.displayName : "Login"} onPress={() => navigation.navigate('Auth')} />
+        <Button title="Number of Contacts" onPress={async () => {
+          var contactList = await Api.Contacts.contactsGet();
+          console.log("Number of contacts: " + contactList.data.length);}} />
+        <Button title="Get First Contact" onPress={async () => {
+          var contact = await Api.Contacts.contactsIdGet(1);
+          console.log("First name: '" + contact.data.fullName + "'");
+        }} />
+      </View>
+    </ThemeProvider>
   );
 }
 
