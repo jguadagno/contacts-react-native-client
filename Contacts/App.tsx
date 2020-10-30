@@ -3,13 +3,14 @@ import { StyleSheet, View } from 'react-native';
 import { Button, Text, ThemeProvider } from 'react-native-elements';
 import Api from './api'
 
-import { NavigationContainer } from '@react-navigation/native';
+import { NavigationContainer, StackActions } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import Auth from './screens/Auth';
 import MsalHandler from './msal/MsalHandler';
 
 // Custom Screens
 import ContactsList from './screens/contacts/list';
+import ContactsDetail from './screens/contacts/details';
 
 const msal = MsalHandler.getInstance();
 var user = msal.getUserData();
@@ -40,9 +41,10 @@ export default function App() {
   return (
     <NavigationContainer>
     <Stack.Navigator>
-      <Stack.Screen name="Home" component={HomeScreen} />
-      <Stack.Screen name="Auth" component={Auth} />
-      <Stack.Screen name="contacts-list" component={ContactsList} />
+      <Stack.Screen name="Home" component={HomeScreen} options={{title: 'React Native - Contacts'}} />
+      <Stack.Screen name="Auth" component={Auth} options={{title: 'Authentication'}} />
+      <Stack.Screen name="contacts-list" component={ContactsList} options={{ title: 'Contacts' }}/>
+      <Stack.Screen name="contacts-detail" component={ContactsDetail} />
     </Stack.Navigator>
   </NavigationContainer>
   );

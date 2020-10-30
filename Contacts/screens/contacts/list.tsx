@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { ActivityIndicator, View, FlatList, StyleSheet } from 'react-native';
-import { Avatar, ListItem, Text, ThemeProvider } from 'react-native-elements';
+import { Avatar, ListItem, Text, ThemeProvider, colors } from 'react-native-elements';
 
 import Api from '../../api'
 import { Contact } from '../../api/generated';
@@ -47,7 +47,7 @@ export default class ContactsList extends Component {
       return (
         <ThemeProvider>
           <View style={[styles.container]}>
-            <Text>Failed to connect to the service.</Text>
+            <Text style={{color: colors.error}}>Failed to connect to the service.</Text>
           </View>
         </ThemeProvider>
       );
@@ -60,7 +60,7 @@ export default class ContactsList extends Component {
             data={this.state.contactList}
             keyExtractor={item => item.contactId.toString()}
             renderItem={({ item }) => (
-              <ListItem>
+              <ListItem onPress={() => {this.handleClick(item)}}>
                 <Avatar source={{uri: item.imageUrl}} />
                 <ListItem.Content>
                   <ListItem.Title>{item.fullName}</ListItem.Title>
@@ -71,6 +71,12 @@ export default class ContactsList extends Component {
         </View>
       </ThemeProvider>
     );
+  }
+
+  handleClick(item: Contact) {
+    // Navigate to the Contact View
+    console.log(item.fullName + " Clicked");
+    this.props.navigation.navigate('contacts-detail', {contactId: item.contactId} );
   }
 
   componentDidMount() {
@@ -85,7 +91,7 @@ export default class ContactsList extends Component {
     ).catch((error) => {
       this.setState({
         isError: true,
-        isLoading: true
+        isLoading: false
       });
     })
   }
