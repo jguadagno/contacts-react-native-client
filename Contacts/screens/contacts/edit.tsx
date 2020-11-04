@@ -1,7 +1,7 @@
 import { Link } from '@react-navigation/native';
 import React, { Component } from 'react';
 import { ActivityIndicator, View, FlatList, StyleSheet, Linking } from 'react-native';
-import { Avatar, ListItem, Text, ThemeProvider, colors, Divider, Button, Header } from 'react-native-elements';
+import { Avatar, ListItem, Text, ThemeProvider, colors, Divider, Button, Header, Input } from 'react-native-elements';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
 import Api from '../../api'
@@ -23,9 +23,10 @@ export class State {
   isError: boolean;
   contact: Contact;
   contactId: number;
+  errorMessage: string;
 }
 
-export default class ContactsDetail extends Component {
+export default class ContactsEdit extends Component {
 
   state: State;
   constructor(props: any) {
@@ -34,7 +35,8 @@ export default class ContactsDetail extends Component {
       isLoading: true,
       isError: false,
       contact: null,
-      contactId: props.route.params.contactId
+      contactId: props.route.params.contactId,
+      errorMessage: null
     };
   }
 
@@ -53,7 +55,7 @@ export default class ContactsDetail extends Component {
       return (
         <ThemeProvider>
           <View style={[styles.container, styles.justify_center]}>
-            <Text style={{ color: colors.error }}>Failed to connect to the service.</Text>
+            <Text style={{ color: colors.error }}>{this.state.errorMessage}</Text>
           </View>
         </ThemeProvider>
       );
@@ -67,18 +69,32 @@ export default class ContactsDetail extends Component {
           <Text h1>{this.state.contact.fullName}</Text>
           <Divider style={{ backgroundColor: 'red' }} />
           <Text>&nbsp;&nbsp;</Text>
+          <Text>Email Address</Text>
+          <Input
+            value={this.state.contact.emailAddress}
+            placeholder='Email Address'
+            editable
+            autoCompleteType="email"
+            onChangeText={(value) => { 
+              var newContact: Contact = this.state.contact;
+              newContact.emailAddress = value;
+              this.setState({ contact: newContact})}
+            }
+            
+            leftIcon={
+              <Icon
+                name='envelope'
+                size={24}
+                color='black'
+              />
+            }
+          />
           <Button 
             icon={
-              <Icon name="envelope" size={15} color="white" />
+              <Icon name="save" size={15} color="white" />
             }
-            title={"  " + this.state.contact.emailAddress}
-            onPress={() => Linking.openURL("mailto:" + this.state.contact.emailAddress) } />
-          <Button 
-            icon={
-              <Icon name="edit" size={15} color="white" />
-            }
-            title="Edit"
-            onPress={() => {this.handleEditClick(this.state.contact)}} />
+            title={"  Save"}
+            onPress={() => this.handleSaveClick(this.state.contact) } />
         </View>
       </ThemeProvider>
     );
@@ -92,18 +108,39 @@ export default class ContactsDetail extends Component {
             contact: response.data,
             isLoading: false
           });
-        this.props.navigation.setOptions({title: this.state.contact.fullName});
+        this.props.navigation.setOptions({title: "Edit: " + this.state.contact.fullName});
       }
     ).catch((error) => {
       this.setState({
         isError: true,
-        isLoading: false
+        isLoading: false,
+        errorMessage: "Failed to load the contact from the service."
       });
     })
   }
-  handleEditClick(item: Contact) {
+  
+  handleSaveClick(item: Contact) {
     // Navigate to the Contact View
-    console.log("Edit Clicked");
-    this.props.navigation.navigate('contacts-edit', {contactId: item.contactId} );
+    console.log("Save Clicked");
+    // TODO: Save the contact
+    Api.Contacts.contactsPost(this.state.contact).then(
+      (response) => {
+        this.setState(
+          {
+            contact: response.data,
+            isLoading: false
+          });
+        // Save successful, navigate to details
+        this.props.navigation.navigate('contacts-detail', {contactId: item.contactId} );
+      }
+    ).catch((error) => {
+      this.setState({
+        isError: true,
+        isLoading: false,
+        errorMessage: "Failed to save the contact"
+      });
+    })    
+
+    
   }
 }

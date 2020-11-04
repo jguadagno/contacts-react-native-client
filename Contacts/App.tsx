@@ -11,6 +11,7 @@ import MsalHandler from './msal/MsalHandler';
 // Custom Screens
 import ContactsList from './screens/contacts/list';
 import ContactsDetail from './screens/contacts/details';
+import ContactsEdit from './screens/contacts/edit';
 
 const msal = MsalHandler.getInstance();
 var user = msal.getUserData();
@@ -45,6 +46,7 @@ export default function App() {
       <Stack.Screen name="Auth" component={Auth} options={{title: 'Authentication'}} />
       <Stack.Screen name="contacts-list" component={ContactsList} options={{ title: 'Contacts' }}/>
       <Stack.Screen name="contacts-detail" component={ContactsDetail} />
+      <Stack.Screen name="contacts-edit" component={ContactsEdit} />
     </Stack.Navigator>
   </NavigationContainer>
   );
